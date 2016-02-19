@@ -1,0 +1,47 @@
+{
+  "name": "Fritz",
+  "version": "0.0.1",
+  "description": "Fritz Website",
+  "engines": {
+    "node": ">=5.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "",
+    "postinstall": "gulp build",
+    "start": "nf run gulp dev",
+    "test": "gulp test",
+    "setup": "npm install -g gulp bower foreman node-inspector",
+    "debug-command": "node-debug -c -p 8082 index.js",
+    "debug": "NODE_DEBUG=1 nf run npm run debug-command"
+  },
+  "repository": "Beg-in/Fritz",
+  "private": true,
+  "author": "beg.in <info@beg.in> (beg.in)",
+  "contributors": [
+    "Brian Jesse <brian.jesse@gmail.com> (brianjesse.com)",
+    "Cody Sherman <meatwaddancin@gmail.com> (codysherman.com)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Beg-in/Fritz/issues"
+  },
+  "homepage": "https://github.com/Beg-in/Fritz#readme",
+  "dependencies": {
+    "gulp-begin": "Beg-in/gulp-begin",
+    "body-parser": "1.14.2",
+    "compression": "1.6.1",
+    "connect-livereload": "0.5.4",
+    "express": "4.13.3",
+    "gulp": "3.9.0",
+    "handlebars": "4.0.5",
+    "lodash": "3.10.1",
+    "marked": "0.3.5",
+    "nodemailer": "2.0.0",
+    "nodep": "0.2.1",
+    "pg": "4.4.3",
+    "shortid": "2.2.4",
+    "throng": "1.0.1",
+    "tiny-lr": "0.2.1"
+  }
+}
