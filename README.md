@@ -1,4 +1,6 @@
-ERROR, Cannot find module.
+# Fritz
+
+
 ## Build
 ### Requirements
 - [Postgresql](http://www.postgresql.org/)
@@ -57,7 +59,7 @@ $ gulp changelog
 - commit messages should follow [Angular conventional format](https://github.com/stevemao/conventional-changelog-angular/blob/master/convention.md)
 
 
-# License
+## License
 [The MIT License (MIT)](http://www.opensource.org/licenses/mit-license.html)
 
 Copyright (c) 2015 Beg.in

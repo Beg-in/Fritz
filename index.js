@@ -1,6 +1,6 @@
 'use strict';
 /**
- * # License
+ * ## License
  * [The MIT License (MIT)](http://www.opensource.org/licenses/mit-license.html)
  *
  * Copyright (c) 2015 Beg.in
@@ -38,6 +38,10 @@ var $p = require('nodep')();
 app.use(compress());
 app.use(bodyParser.json());
 
+/**
+ * # Fritz
+ * @module introduction
+ */
 var fritz = function(config) {
 
     config = config || {};
