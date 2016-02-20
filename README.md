@@ -8,13 +8,18 @@
 #### Setup
 ```bash
 $ npm run setup
-$ npm install
 ```
+
 This installs the following globally:
 - [Gulp](http://gulpjs.com/)
 - [Bower](http://bower.io/)
 - [Node Foreman](http://strongloop.github.io/node-foreman/)
 - [Node Inspector](https://github.com/node-inspector/node-inspector)
+
+Then install the required Node dependencies with:
+```bash
+$ npm install
+```
 
 Add a file called `.env` to the root of the project with the following contents:
 ```json

@@ -84,6 +84,7 @@ var fritz = function(config) {
 
     return {
         provider: $p,
+        static: $p.dependencies.static,
         model: $p.dependencies.model,
         route: $p.dependencies.route,
         db: $p.dependencies.db,
