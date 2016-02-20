@@ -21,7 +21,7 @@ angular.module('exampleApp', [
     }).when('/testedit', {
         //test for page editing
         templateUrl: '/test-edit.html',
-        controller: 'staticController'
+        controller: 'testController'
     }).when('/404', {
         //404 error
         templateUrl: '/404.html',
