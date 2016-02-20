@@ -61,6 +61,15 @@ var gulp = require('gulp');
  * - commit messages should follow [Angular conventional format](https://github.com/stevemao/conventional-changelog-angular/blob/master/convention.md)
  * @module contributing
  */
-require('gulp-begin')(gulp, {});
+require('gulp-begin')(gulp, {
+    server: {
+        main: 'example/index.js',
+        cwd: 'example/src/server'
+    },
+    client: {
+        cwd: 'example/src/client',
+        dest: 'example/public'
+    }
+});
 
 gulp.task('default', ['dev']);
