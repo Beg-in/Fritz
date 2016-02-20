@@ -1,0 +1,155 @@
+.frow {
+    // @extend .row;
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: center;
+
+    &>* {
+        float: none;
+    }
+
+    &>div {
+        height: 100%;
+    }
+
+    // flex-direction
+    &.direction-row {
+        flex-direction: row-reverse;
+    }
+    &.direction-reverse {
+        flex-direction: row-reverse;
+    }
+    &.direction-column {
+        flex-direction: column;
+    }
+    &.direction-column-reverse {
+        flex-direction: column-reverse;
+    }
+
+    // justify-content
+    &.justify-start {
+        justify-content: flex-start;
+    }
+    &.justify-end {
+        justify-content: flex-end;
+    }
+    &.justify-center {
+        justify-content: center;
+    }
+    &.justify-between {
+        justify-content: space-between;
+    }
+    &.justify-around {
+        justify-content: space-around;
+    }
+
+    // align-items
+    &.items-stretch {
+        align-items: stretch;
+    }
+    &.items-start {
+        align-items: flex-start;
+    }
+    &.items-end {
+        align-items: flex-end;
+    }
+    &.items-center {
+        align-items: center;
+    }
+    &.items-baseline {
+        align-items: baseline;
+    }
+
+    // align-content
+    &.content-start {
+        align-content: flex-start;
+    }
+    &.content-end {
+        align-content: flex-end;
+    }
+    &.content-center {
+        align-content: center;
+    }
+    &.content-between {
+        align-content: space-between;;
+    }
+    &.content-around {
+        align-content: space-around;
+    }
+
+    @each $size in xs, sm, md, lg {
+        @for $i from 1 through 100 {
+            .percent-#{$size}-#{$i} { width: percentage($i/100) }
+        }
+
+        @for $i from 1 through 12 {
+            .fraction-#{$size}-#{$i}-12 {
+                width: percentage($i/12);
+            }
+        }
+
+        @for $i from 1 through 11 {
+            .fraction-#{$size}-#{$i}-11 {
+                width: percentage($i/11);
+            }
+        }
+
+        @for $i from 1 through 10 {
+            .fraction-#{$size}-#{$i}-10 {
+                width: percentage($i/10);
+            }
+        }
+
+        @for $i from 1 through 9 {
+            .fraction-#{$size}-#{$i}-9 {
+                width: percentage($i/10);
+            }
+        }
+
+        @for $i from 1 through 8 {
+            .fraction-#{$size}-#{$i}-8 {
+                width: percentage($i/8);
+            }
+        }
+
+        @for $i from 1 through 7 {
+            .fraction-#{$size}-#{$i}-7 {
+                width: percentage($i/8);
+            }
+        }
+
+        @for $i from 1 through 6 {
+            .fraction-#{$size}-#{$i}-6 {
+                width: percentage($i/6);
+            }
+        }
+
+        @for $i from 1 through 5 {
+            .fraction-#{$size}-#{$i}-5 {
+                width: percentage($i/6);
+            }
+        }
+
+        @for $i from 1 through 4 {
+            .fraction-#{$size}-#{$i}-4 {
+                width: percentage($i/4);
+            }
+        }
+
+        @for $i from 1 through 3 {
+            .fraction-#{$size}-#{$i}-3 {
+                width: percentage($i/3);
+            }
+        }
+
+        @for $i from 1 through 2 {
+            .fraction-#{$size}-#{$i}-2 {
+                width: percentage($i/2);
+            }
+        }
+
+        .fraction-#{$size}-1-1 {
+            width: 100%;
+        }
+    }
+}
