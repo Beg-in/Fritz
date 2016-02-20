@@ -8,13 +8,17 @@
 #### Setup
 ```bash
 $ npm run setup
-$ npm install
 ```
+
 This installs the following globally:
 - [Gulp](http://gulpjs.com/)
 - [Bower](http://bower.io/)
 - [Node Foreman](http://strongloop.github.io/node-foreman/)
 - [Node Inspector](https://github.com/node-inspector/node-inspector)
+
+```bash
+$ npm install
+```
 
 Add a file called `.env` to the root of the project with the following contents:
 ```json
@@ -81,5 +85,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-
