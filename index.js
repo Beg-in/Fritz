@@ -73,11 +73,6 @@ var fritz = function(config) {
         config: config
     }).init('src/**/*');
 
-    var listen = function() {
-        util.log('start worker');
-        app.listen(config.port);
-    };
-
     if(config.isDev) {
         app.use(require('connect-livereload')());
         //app.use('/fonts', express.static(config.paths.fontsDev));
@@ -87,17 +82,28 @@ var fritz = function(config) {
         // app.use(express.static(__dirname + '/public', { maxAge: oneDay }));
     }
 
-    //app.use(express.static(config.env.root));
-    if(config.debug) {
-        listen();
-    } else {
-        throng(listen, {
-            workers: config.workers,
-            lifetime: Infinity
-        });
-    }
-};
+    return {
+        provider: $p,
+        model: $p.dependencies.model,
+        route: $p.dependencies.route,
+        db: $p.dependencies.db,
+        start: function() {
+            var listen = function() {
+                util.log('start worker');
+                app.listen(config.port);
+            };
 
-fritz.provider = $p;
+            //app.use(express.static(config.env.root));
+            if(config.debug) {
+                listen();
+            } else {
+                throng(listen, {
+                    workers: config.workers,
+                    lifetime: Infinity
+                });
+            }
+        }
+    };
+};
 
 module.exports = fritz;
