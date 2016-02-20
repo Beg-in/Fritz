@@ -2,9 +2,8 @@
 
 var fritz = require('../index')();
 
-/*
 var Test = class extends fritz.model({
-    table: 'Test',
+    table: 'profiles',
     properties: {
         email: fritz.model.valid.email,
         bio: fritz.model.valid.nullable
@@ -27,7 +26,7 @@ var Test = class extends fritz.model({
     }
 };
 
-fritz.route('api/v1/test', function(method) {
+/*fritz.route('api/v1/test', function(method) {
     method.get('all', function() {
         return Test.getAll().then(function(result) {
             return result.rows;
