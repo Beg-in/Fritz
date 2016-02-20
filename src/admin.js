@@ -1,9 +1,10 @@
 'use strict';
 
-module.exports = function() {
+module.exports = function(path, app, express, config) {
 
-  return {
-      tables: {}
-  };
+    app.use('/fritz', express.static(path.join(config.paths.fritz, 'admin')));
 
+    return {
+        tables: {}
+    };
 };
