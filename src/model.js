@@ -2,7 +2,7 @@
 
 var shortid = require('shortid');
 
-module.exports = function(util, _, db) {
+module.exports = function(util, _, db, admin) {
 
     var rule = function(regex, message) {
         return  {
@@ -167,6 +167,8 @@ module.exports = function(util, _, db) {
                 };
             });
         }
+
+        admin.register(descriptor);
 
         return Model;
     };
