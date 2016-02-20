@@ -14,10 +14,18 @@ angular.module('exampleApp', [
 
     $routeProvider.when('/', {
         //home page
-        templateUrl: 'home.html',
+        templateUrl: '/home.html',
         controller: 'staticController'
     }).when('/index.html', {
         redirectTo: '/'
+    }).when('/testedit', {
+        //test for page editing
+        templateUrl: '/test-edit.html',
+        controller: 'staticController'
+    }).when('/404', {
+        //404 error
+        templateUrl: '/404.html',
+        controller: 'staticController'
     }).otherwise({
         redirectTo: '/404'
     });
