@@ -2,7 +2,7 @@
 
 var shortid = require('shortid');
 
-module.exports = function(util, _, db) {
+module.exports = function(util, _, db, admin) {
 
     var rule = function(regex, message) {
         return  {
@@ -50,6 +50,7 @@ module.exports = function(util, _, db) {
             );
         `).then(function() {
             util.log(`load table ${name}`);
+            admin.table[name] = true;
         });
     };
 
