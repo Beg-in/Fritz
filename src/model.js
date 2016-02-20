@@ -50,7 +50,6 @@ module.exports = function(util, _, db, admin) {
             );
         `).then(function() {
             util.log(`load table ${name}`);
-            admin.table[name] = true;
         });
     };
 
@@ -168,6 +167,8 @@ module.exports = function(util, _, db, admin) {
                 };
             });
         }
+
+        admin.register(descriptor);
 
         return Model;
     };

@@ -13,7 +13,6 @@ module.exports = function(assert) {
                 };
             },
             query: function() {
-                console.log('query', arguments);
                 return Promise.resolve();
             }
         };
@@ -21,11 +20,21 @@ module.exports = function(assert) {
         beforeEach(function() {
         });
 
-        it('should create table', function() {
-            // Mock DB
-            var instance = model(util, _, db);
+        it('should register model', function() {
+            var expected = {table: 'Test'};
+            var actual;
 
-            instance({table: 'Test'});
+            var admin = {
+                register: function(descriptor) {
+                    actual = descriptor;
+                }
+            };
+            // Mock DB
+            var instance = model(util, _, db, admin);
+
+            instance(expected);
+
+            assert.equal(expected, actual);
         });
     });
 };
