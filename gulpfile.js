@@ -61,6 +61,20 @@ var gulp = require('gulp');
  * - commit messages should follow [Angular conventional format](https://github.com/stevemao/conventional-changelog-angular/blob/master/convention.md)
  * @module contributing
  */
-require('gulp-begin')(gulp, {});
+require('gulp-begin')(gulp, {
+  // only include docs, test, and jshint
+  exclude: [
+    'html',
+    'scripts',
+    'styles',
+    'build',
+    'server',
+    'demon',
+    'dev',
+    'autotest',
+    'changelog'
+  ],
+  warnExclusions: true
+});
 
 gulp.task('default', ['dev']);
