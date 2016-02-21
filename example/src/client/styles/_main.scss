@@ -146,6 +146,15 @@ a:hover, a:focus {
     box-shadow: $card-shadow;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $montserrat;
+}
+
 h1 {
     font-size: 60px;
     font-style: italic;
