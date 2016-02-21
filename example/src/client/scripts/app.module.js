@@ -1,6 +1,7 @@
 angular.module('exampleApp', [
     'ngAnimate',
-    'ngRoute'
+    'ngRoute',
+    'templates'
 ]).config(function(
     $locationProvider,
     $routeProvider,
@@ -14,17 +15,17 @@ angular.module('exampleApp', [
 
     $routeProvider.when('/', {
         //home page
-        templateUrl: '/home.html',
+        templateUrl: 'home.html',
         controller: 'staticController'
     }).when('/index.html', {
         redirectTo: '/'
     }).when('/edit', {
         //edit page
-        templateUrl: '/edit.html',
+        templateUrl: 'edit.html',
         controller: 'editController'
     }).when('/404', {
         //404 error
-        templateUrl: '/404.html',
+        templateUrl: '404.html',
         controller: 'staticController'
     }).otherwise({
         redirectTo: '/404'
