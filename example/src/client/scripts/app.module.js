@@ -18,10 +18,10 @@ angular.module('exampleApp', [
         controller: 'staticController'
     }).when('/index.html', {
         redirectTo: '/'
-    }).when('/testedit', {
-        //test for page editing
-        templateUrl: '/test-edit.html',
-        controller: 'testController'
+    }).when('/edit', {
+        //edit page
+        templateUrl: '/edit.html',
+        controller: 'editController'
     }).when('/404', {
         //404 error
         templateUrl: '/404.html',

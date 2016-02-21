@@ -2,13 +2,19 @@
     // @extend .row;
     display: flex;
     flex-wrap: wrap;
-    // justify-content: center;
+    justify-content: center;
 
     &>* {
         float: none;
+        padding-right: 15px;
     }
 
-    &>div {
+    &>*:last-child {
+        float: none;
+        padding-right: 0px;
+    }
+
+    &>div, &>img {
         height: 100%;
     }
 

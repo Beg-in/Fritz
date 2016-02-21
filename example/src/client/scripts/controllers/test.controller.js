@@ -1,4 +1,4 @@
-angular.module('exampleApp').controller('testController', function(
+angular.module('exampleApp').controller('editController', function(
     $scope
 ) { 'use strict';
 });

@@ -1,0 +1,24 @@
+.fritz {
+    body {
+        margin: 0 15px;
+    }
+        .fritz-left {
+            &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p {
+                text-align: left;
+            }
+        }
+        .fritz-center {
+            &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p {
+                text-align: center;
+            }
+        }
+        .fritz-right {
+            &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p {
+                text-align: right;
+            }
+        }
+
+    .fritz-image img{
+        width: 100%;
+    }
+}
