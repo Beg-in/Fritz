@@ -48,6 +48,7 @@ var fritz = function(config) {
     config = _.defaultsDeep(config, {
         paths: {
             src: path.resolve('src'),
+            fritz: path.resolve('.'),
             cwd: process.cwd()
         },
         pg: {

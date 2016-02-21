@@ -168,7 +168,7 @@ module.exports = function(util, _, db, admin) {
             });
         }
 
-        admin.register(descriptor);
+        admin.register(descriptor, Model);
 
         return Model;
     };
