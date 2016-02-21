@@ -15,8 +15,8 @@ angular.module('exampleApp', [
 
     $routeProvider.when('/', {
         //home page
-        templateUrl: 'home.html',
-        controller: 'staticController'
+        templateUrl: 'edit.html',
+        controller: 'editController'
     }).when('/index.html', {
         redirectTo: '/'
     }).when('/edit', {
