@@ -6,12 +6,15 @@
 
     &>* {
         float: none;
-        padding-right: 15px;
+        padding: 15px;
     }
 
     &>*:last-child {
         float: none;
-        padding-right: 0px;
+    }
+
+    &>div>img {
+        width: 100%;
     }
 
     &>div, &>img {
