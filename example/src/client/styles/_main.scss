@@ -4,10 +4,6 @@ html, body {
     min-height: 100%;
     -webkit-font-smoothing: subpixel-antialiased;
     background-color: $background-grey;
-
-    &.theme-dark {
-        background-color: $dark-background-grey;
-    }
 }
 
 *:not(.ng-animate) {
@@ -30,10 +26,6 @@ body {
     font-family: $roboto;
     line-height: normal;
     color: $near-black;
-
-    &.theme-dark {
-        color: #BBB;
-    }
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -127,10 +119,6 @@ a:hover, a:focus {
     padding: 30px 25px;
     border-radius: 1px;
     margin-bottom: 30px;
-
-    .theme-dark & {
-        background-color: $dark-white;
-    }
 }
 
 @keyframes pagein {
@@ -144,15 +132,6 @@ a:hover, a:focus {
 
 .card-shadow {
     box-shadow: $card-shadow;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: $montserrat;
 }
 
 h1 {
@@ -170,11 +149,10 @@ h1 {
 }
 
 h2 {
-    font-size: 48px;
+    font-size: 44px;
     line-height: 120%;
     font-style: italic;
-    text-transform: uppercase;
-    font-weight: 300;
+    font-weight: 100;
     color: $near-black;
     padding: 40px 0 20px 0;
 }

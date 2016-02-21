@@ -1,4 +1,4 @@
-angular.module('bnMentorsApp').directive('editable', function(
+angular.module('exampleApp').directive('editable', function(
     $rootScope,
     $location,
     $window,
@@ -8,10 +8,10 @@ angular.module('bnMentorsApp').directive('editable', function(
     return {
       restrict: 'E',
       transclude: true,
-      templateUrl: '/views/editable.html',
-      // scope: {
-      //   editableName: '=name'
-      // },
+      templateUrl: '/fritz/views/editable.html',
+      scope: {
+        // editableName: '=name'
+      },
       link: function ($scope, $ielem, $iattrs) {
         $scope.editableName = $iattrs.name;
 
