@@ -1,8 +1,23 @@
 .editPage {
 
-    body {
-        margin-bottom: 110px;
-        box-sizing: content-box;
+    .fritz-edit {
+        body {
+            margin-bottom: 110px;
+        }
+
+        .frow:hover {
+            border: 2px solid $primary-color;
+        }
+    }
+
+    .fritz-edit-button {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        background-color: $primary-color;
+        width: 50px;
+        height: 30px;
+        color: #fff;
     }
 
     .fritz-module-menu{
