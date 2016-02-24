@@ -13,7 +13,7 @@
     "test": "gulp test",    
     "changelog": "gulp changelog",
     "updatedocs": "gulp docs",
-    "preversion": "npm run test && ",
+    "preversion": "npm run test",
     "version" : "npm version && npm run changelog && npm run updatedocs",
     "postversion": "npm run commit && npm run push",
     "commit": "git add .",
