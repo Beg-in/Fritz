@@ -1,5 +1,7 @@
 # Fritz
 
+[![Join the chat at https://gitter.im/Beg-in/Fritz](https://badges.gitter.im/Beg-in/Fritz.svg)](https://gitter.im/Beg-in/Fritz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 ## Build
 ### Requirements
