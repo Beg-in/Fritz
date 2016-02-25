@@ -142,6 +142,15 @@ module.exports = function(util, _, db, admin) {
                     resolve(new Model(obj));
                 });
             }
+            safe() {
+                var out = {};
+                _.forEach(descriptor.properties, ($, property) => {
+                    if(!_.contains(descriptor.protect, property)) {
+                        out[property] = this[property];
+                    }
+                });
+                return out;
+            }
         }
 
         Model.createQuery = createQuery;

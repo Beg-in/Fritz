@@ -34,12 +34,14 @@ var app = express();
 var bodyParser = require('body-parser');
 var throng = require('throng');
 var $p = require('nodep')();
+var begin = require('gulp-begin');
 
 app.use(compress());
 app.use(bodyParser.json());
 
 /**
  * # Fritz
+ * [![Gitter](https://badges.gitter.im/Beg-in/Fritz.svg)](https://gitter.im/Beg-in/Fritz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
  * @module introduction
  */
 var fritz = function(config) {
@@ -89,6 +91,7 @@ var fritz = function(config) {
         model: $p.dependencies.model,
         route: $p.dependencies.route,
         db: $p.dependencies.db,
+        build: begin,
         start: function() {
             var listen = function() {
                 util.log('start worker');

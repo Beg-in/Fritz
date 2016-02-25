@@ -1,4 +1,5 @@
 # Fritz
+[![Gitter](https://badges.gitter.im/Beg-in/Fritz.svg)](https://gitter.im/Beg-in/Fritz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 
 ## Build

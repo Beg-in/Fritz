@@ -1,9 +1,16 @@
 'use strict';
 
-module.exports = function(app, express) {
+module.exports = function(_, app, express, path) {
     var route = function(base) {
-        var register = function(method, path, cb) {
-            app[method]('/' + base + '/' + path, function(req, res) {
+        var register = function(method, endpoint, cb) {
+            if(_.isFunction(endpoint)) {
+                cb = endpoint;
+                endpoint = base;
+            } else {
+                endpoint = path.join(base, endpoint);
+            }
+            endpoint = path.join('/', endpoint);
+            app[method](endpoint, function(req, res) {
                 var content = cb(req, req.body, res);
                 if(content instanceof Promise) {
                     content.then(function(result) {
@@ -21,17 +28,17 @@ module.exports = function(app, express) {
 
         return {
             app: app,
-            get: function(path, cb) {
-                register('get', path, cb);
+            get: function(endpoint, cb) {
+                register('get', endpoint, cb);
             },
-            post: function(path, cb) {
-                register('post', path, cb);
+            post: function(endpoint, cb) {
+                register('post', endpoint, cb);
             },
-            put: function(path, cb) {
-                register('put', path, cb);
+            put: function(endpoint, cb) {
+                register('put', endpoint, cb);
             },
-            delete: function(path, cb) {
-                register('delete', path, cb);
+            delete: function(endpoint, cb) {
+                register('delete', endpoint, cb);
             }
         };
     };
