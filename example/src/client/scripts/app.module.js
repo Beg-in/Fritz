@@ -48,4 +48,6 @@ angular.module('exampleApp', [
         $rootScope.pageName = next.$$route.controller.substring(0, c) + 'Page';
     });
 
+    $rootScope.fritzEdit = false;
+
 });

@@ -1,64 +1,78 @@
-editable {
-
-  display: block;
-  position: relative;
-
-  ul {
-    padding: 0;
-    margin: 0;
-
-    li {
-      list-style: none;
-      display: inline-block;
-    }
-    li:before {
-      content: none;
-    }
-  }
-
-  ul.hover-actions, ul.edit-actions {
+body:not(.fritz-editing) editable>* {
     display: none;
-  }
-  
-  button.action-item {
-    margin: 5px;
-  }
 }
 
-editable:not([contenteditable="true"]) {
-
-  ul.hover-actions {
-    z-index: 3;
-    display: block;
-    visibility: hidden;
-
-    position: absolute;
-    top: 15px;
-    right: 15px;
-  }
-
-  &:hover {
-    > .overlay {
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background-color: #000;
-      opacity: 0.3;
+body editable {
+    .editable-inner-wrap {
+        display: inline;
     }
-
-    ul.hover-actions {
-      visibility: visible;
-    }
-  }
 }
 
-editable[contenteditable="true"] {
-  ul.edit-actions {
-    display: block;
+.fritz-editing {
 
-    li {
-      text-align: right;
+    editable {
+
+        display: block;
+        position: relative;
+
+        ul {
+            padding: 0;
+            margin: 0;
+
+            li {
+                list-style: none;
+                display: inline-block;
+            }
+            li:before {
+                content: none;
+            }
+        }
+
+        ul.hover-actions, ul.edit-actions {
+            display: none;
+        }
+
+        button.action-item {
+            margin: 5px;
+        }
     }
-  }
+
+
+    editable:not([contenteditable="true"]) {
+
+        ul.hover-actions {
+            z-index: 3;
+            display: block;
+            visibility: hidden;
+
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        &:hover {
+            >.overlay {
+                z-index: 2;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background-color: #000;
+                opacity: 0.3;
+            }
+
+            ul.hover-actions {
+                visibility: visible;
+            }
+        }
+    }
+
+    editable[contenteditable="true"] {
+        ul.edit-actions {
+            display: block;
+
+            li {
+                text-align: right;
+            }
+        }
+    }
 }

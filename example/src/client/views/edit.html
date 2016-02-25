@@ -1,7 +1,6 @@
-<button class="fritz-edit-button" ng-click="fritzEdit = !fritzEdit">
-    {{fritzEdit ? 'Save' : 'Layout'}}
+<button class="fritz-edit-button" ng-click="$root.fritzEdit = !$root.fritzEdit">
+    {{$root.fritzEdit ? 'Save' : 'Layout'}}
 </button>
-    <!-- <button ng-click="test = !test">Direction</button> -->
 <div ng-class="{'fritz-edit': fritzEdit}">
     <editable name="first-row">
         <div class="frow">
@@ -13,8 +12,15 @@
         </div>
     </editable>
 
+    <span ng-show="$root.fritzEdit">
+        <button ng-click="first = 'row'">Row</button>
+        <button ng-click="first = 'column'">Column</button> |
+        <button ng-click="second = 'start'">Start</button>
+        <button ng-click="second = 'center'">Center</button>
+        <button ng-click="second = 'end'">End</button>
+    </span>
     <editable name="second-row">
-    <div class="frow" ng-class="{'direction-column': test}">
+    <div class="frow {{first + '-' + second}}">
         <div class="fraction-md-1-2">
             <img class="card-shadow" src="/images/test.jpg" alt="">
         </div>
