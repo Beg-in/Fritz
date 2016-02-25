@@ -18,9 +18,6 @@
     "postversion": "npm run commit && npm run push",
     "commit": "git add .",
     "push": "git push",
-    "version:major": "npm version major",
-    "version:minor": "npm version minor",
-    "version:patch": "npm version patch",
     "setup": "npm install -g gulp bower foreman node-inspector",
     "debug-command": "node-debug -c -p 8082 index.js",
     "debug": "NODE_DEBUG=1 nf run npm run debug-command"
