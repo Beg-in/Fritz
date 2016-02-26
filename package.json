@@ -1,7 +1,7 @@
 {
   "name": "Fritz",
   "version": "0.0.1",
-  "description": "Fritz Website",
+  "description": "Fritz Full-Stack Framework",
   "engines": {
     "node": ">=5.0"
   },
@@ -16,7 +16,6 @@
     "debug": "NODE_DEBUG=1 nf run npm run debug-command"
   },
   "repository": "Beg-in/Fritz",
-  "private": true,
   "author": "beg.in <info@beg.in> (beg.in)",
   "contributors": [
     "Brian Jesse <brian.jesse@gmail.com> (brianjesse.com)",
@@ -38,7 +37,7 @@
     "lodash": "3.10.1",
     "marked": "0.3.5",
     "nodemailer": "2.0.0",
-    "nodep": "0.2.1",
+    "nodep": "0.2.2",
     "pg": "4.4.3",
     "shortid": "2.2.4",
     "throng": "1.0.1",
