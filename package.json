@@ -10,16 +10,25 @@
     "preinstall": "",
     "postinstall": "gulp build",
     "start": "nf run gulp dev",
-    "test": "gulp test",
+    "test": "gulp test",    
+    "changelog": "gulp changelog",
+    "updatedocs": "gulp docs",
+    "preversion": "npm run test",
+    "version" : "npm version && npm run changelog && npm run updatedocs",
+    "postversion": "npm run commit && npm run push",
+    "commit": "git add .",
+    "push": "git push",
     "setup": "npm install -g gulp bower foreman node-inspector",
     "debug-command": "node-debug -c -p 8082 index.js",
     "debug": "NODE_DEBUG=1 nf run npm run debug-command"
+
   },
   "repository": "Beg-in/Fritz",
   "author": "beg.in <info@beg.in> (beg.in)",
   "contributors": [
     "Brian Jesse <brian.jesse@gmail.com> (brianjesse.com)",
-    "Cody Sherman <meatwaddancin@gmail.com> (codysherman.com)"
+    "Cody Sherman <meatwaddancin@gmail.com> (codysherman.com)",
+    "Steven Natera <stevennatera15@gmail.com> (stevennatera.herokuapp.com)"
   ],
   "license": "MIT",
   "bugs": {
