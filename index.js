@@ -49,8 +49,8 @@ var fritz = function(config) {
     config = config || {};
     config = _.defaultsDeep(config, {
         paths: {
-            src: path.resolve('src'),
-            fritz: path.resolve('.'),
+            dirname: __dirname,
+            src: path.join(__dirname, 'src'),
             cwd: process.cwd()
         },
         pg: {
@@ -74,7 +74,7 @@ var fritz = function(config) {
         express: express,
         app: app,
         config: config
-    }).init('src/**/*');
+    }).init(path.join(config.paths.src, '**/*.js'));
 
     if(config.isDev) {
         app.use(require('connect-livereload')());

@@ -37,7 +37,7 @@
     "lodash": "3.10.1",
     "marked": "0.3.5",
     "nodemailer": "2.0.0",
-    "nodep": "0.2.2",
+    "nodep": "0.2.3",
     "pg": "4.4.3",
     "shortid": "2.2.4",
     "throng": "1.0.1",
