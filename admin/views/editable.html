@@ -1,10 +1,21 @@
-<div class="overlay"></div>
+<!-- <div class="overlay"></div> -->
 
 <ul class="hover-actions">
     <li><button class="action-item" ng-click="beginEdit(editableName)">Edit</button></li>
 </ul>
 
-<div class="editable-inner-wrap" ng-transclude></div>
+<div class="editable-container">
+    {{first}}
+    <div class="editable-toolbar">
+        <button ng-click="$parent.first = 'row'">Row</button>
+        <button ng-click="$parent.first = 'column'">Column</button> |
+        <button ng-click="$parent.second = 'start'">Start</button>
+        <button ng-click="$parent.second = 'center'">Center</button>
+        <button ng-click="$parent.second = 'end'">End</button>
+    </div>
+    <div class="editable-inner-wrap" ng-transclude></div>
+</div>
+
 
 <ul class="edit-actions">
     <li><button class="action-item" ng-click="saveEdit(editableName)">Save</button></li>

@@ -1,10 +1,17 @@
-body:not(.fritz-editing) editable>* {
-    display: none;
-}
+body {
+    &:not(.fritz-editing) editable {
 
-body editable {
-    .editable-inner-wrap {
-        display: inline;
+        &>* {
+            display: none;
+        }
+
+        .editable-container {
+            display: inline;
+
+            .editable-toolbar {
+                display: none;
+            }
+        }
     }
 }
 

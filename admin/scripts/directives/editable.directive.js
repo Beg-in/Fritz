@@ -12,7 +12,10 @@ angular.module('exampleApp').directive('editable', function(
       scope: {
         // editableName: '=name'
       },
-      link: function ($scope, $ielem, $iattrs) {
+      link: function ($scope, $ielem, $iattrs, ctrl, transclude) {
+
+          console.log($scope);
+
         $scope.editableName = $iattrs.name;
 
         var html = $ielem.html();
@@ -30,6 +33,15 @@ angular.module('exampleApp').directive('editable', function(
           var newHTML = document.querySelector("editable[name='" + name + "'] .editable-inner-wrap").innerHTML;
           console.log(newHTML);
         };
+
+        // $scope.first = 'row';
+        // $scope.second = 'center';
+
+        // console.log($ielem);
+
+        // transclude($scope.$parent, function(clone, $scope) {
+        //   $ielem.append(clone);
+        // });
 
         // html.replace(/\{\{(.*?)\}\}/, "DYNAMIC CONTENT!");
         // var e = $compile(html)($scope);

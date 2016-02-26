@@ -1,68 +1,67 @@
 <button class="fritz-edit-button" ng-click="$root.fritzEdit = !$root.fritzEdit">
     {{$root.fritzEdit ? 'Save' : 'Layout'}}
 </button>
-<div ng-class="{'fritz-edit': fritzEdit}">
-    <editable name="first-row">
-        <div class="frow">
-            <div class="fraction-md-1-1 fritz-center">
-                <h1>
-                    Biggest Title!
-                </h1>
-            </div>
-        </div>
-    </editable>
 
-    <span ng-show="$root.fritzEdit">
-        <button ng-click="first = 'row'">Row</button>
-        <button ng-click="first = 'column'">Column</button> |
-        <button ng-click="second = 'start'">Start</button>
-        <button ng-click="second = 'center'">Center</button>
-        <button ng-click="second = 'end'">End</button>
-    </span>
-    <editable name="second-row">
-    <div class="frow {{first + '-' + second}}">
-        <div class="fraction-md-1-2">
-            <img class="card-shadow" src="/images/test.jpg" alt="">
-        </div>
-        <div class="fraction-md-1-2">
-            <p>
-                This is your not so big title, but actually your content for your website. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content.
-            </p>
+<editable name="first-row">
+    <div class="frow">
+        <div class="fraction-md-1-1 fritz-center">
+            <h1>
+                Biggest Title!
+            </h1>
         </div>
     </div>
-    </editable>
-    <editable name="third-row">
-        <div class="frow">
-            <div class="fraction-md-1-1 fritz-center">
-                <h2>
-                    Small Title
-                </h2>
-            </div>
-        </div>
-    </editable>
-    <editable name="fourth-row">
-    <div class="frow drop event">
-        <div class="fraction-md-1-3 fritz-center">
-            <img class="card-shadow" src="/images/example1.jpg" alt="">
-            <p>
-                This is your not so big title, but actually your content for your website. Here is more content.
-            </p>
-        </div>
-        <div class="fraction-md-1-3 fritz-center">
-            <img class="card-shadow" src="/images/example2.jpg" alt="">
-            <p>
-                This is your not so big title, but actually your content for your website. Here is more content.
-            </p>
-        </div>
-        <div class="fraction-md-1-3 fritz-center">
-            <img class="card-shadow" src="/images/example3.jpg" alt="">
-            <p>
-                This is your not so big title, but actually your content for your website. Here is more content.
-            </p>
-        </div>
+</editable>
+
+<span ng-show="$root.fritzEdit">
+    <!-- <button ng-click="first = 'row'">Row</button>
+    <button ng-click="first = 'column'">Column</button> |
+    <button ng-click="second = 'start'">Start</button>
+    <button ng-click="second = 'center'">Center</button>
+    <button ng-click="second = 'end'">End</button> -->
+</span>
+<editable name="second-row">
+<div class="frow {{first + '-' + second}}">
+    <div class="fraction-md-1-2">
+        <img class="card-shadow" src="/images/test.jpg" alt="">
     </div>
-    </editable>
+    <div class="fraction-md-1-2">
+        <p>
+            This is your not so big title, but actually your content for your website. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content. Here is more content.
+        </p>
+    </div>
 </div>
+</editable>
+<editable name="third-row">
+    <div class="frow">
+        <div class="fraction-md-1-1 fritz-center">
+            <h2>
+                Small Title
+            </h2>
+        </div>
+    </div>
+</editable>
+<editable name="fourth-row">
+<div class="frow {{first + '-' + second}}">
+    <div class="fraction-md-1-3 fritz-center">
+        <img class="card-shadow" src="/images/example1.jpg" alt="">
+        <p>
+            This is your not so big title, but actually your content for your website. Here is more content.
+        </p>
+    </div>
+    <div class="fraction-md-1-3 fritz-center">
+        <img class="card-shadow" src="/images/example2.jpg" alt="">
+        <p>
+            This is your not so big title, but actually your content for your website. Here is more content.
+        </p>
+    </div>
+    <div class="fraction-md-1-3 fritz-center">
+        <img class="card-shadow" src="/images/example3.jpg" alt="">
+        <p>
+            This is your not so big title, but actually your content for your website. Here is more content.
+        </p>
+    </div>
+</div>
+</editable>
 <!-- <div class="fritz-module-menu">
     <div class="fritz-module">Big Title</div>
     <div class="fritz-module">Small Title</div>
