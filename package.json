@@ -10,18 +10,17 @@
     "preinstall": "",
     "postinstall": "gulp build",
     "start": "nf run gulp dev",
-    "test": "gulp test",    
+    "test": "gulp test",
     "changelog": "gulp changelog",
     "updatedocs": "gulp docs",
     "preversion": "npm run test",
-    "version" : "npm version && npm run changelog && npm run updatedocs",
+    "version": "npm version && npm run changelog && npm run updatedocs",
     "postversion": "npm run commit && npm run push",
     "commit": "git add .",
     "push": "git push",
     "setup": "npm install -g gulp bower foreman node-inspector",
     "debug-command": "node-debug -c -p 8082 index.js",
     "debug": "NODE_DEBUG=1 nf run npm run debug-command"
-
   },
   "repository": "Beg-in/Fritz",
   "author": "beg.in <info@beg.in> (beg.in)",
@@ -36,7 +35,6 @@
   },
   "homepage": "https://github.com/Beg-in/Fritz#readme",
   "dependencies": {
-    "gulp-begin": "Beg-in/gulp-begin",
     "body-parser": "1.14.2",
     "compression": "1.6.1",
     "connect-livereload": "0.5.4",
@@ -51,5 +49,8 @@
     "shortid": "2.2.4",
     "throng": "1.0.1",
     "tiny-lr": "0.2.1"
+  },
+  "devDependencies": {
+    "gulp-begin": "github:beg-in/gulp-begin"
   }
 }

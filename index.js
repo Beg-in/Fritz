@@ -91,6 +91,7 @@ var fritz = function(config) {
         model: $p.dependencies.model,
         route: $p.dependencies.route,
         db: $p.dependencies.db,
+        run: $p.dependencies.run,
         build: begin,
         start: function() {
             var listen = function() {
