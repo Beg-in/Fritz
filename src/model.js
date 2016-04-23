@@ -93,10 +93,7 @@ module.exports = function(util, _, db, admin) {
                 }, this);
             }
             create() {
-                var self = this;
-                return createQuery(params(this)).then(function() {
-                    return self;
-                });
+                return createQuery(params(this)).then(() => this);
             }
             static create(obj) {
                 return Model.validate(obj).then(function(result) {

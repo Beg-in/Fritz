@@ -17,17 +17,17 @@ module.exports = function(_, app, express, path, run) {
                 cb = run(cb);
             }
             endpoint = path.join('/', endpoint);
-            app[method](endpoint, function(req, res) {
+            app[method](endpoint, function(req, res, next) {
                 let deferred = Promise.resolve();
                 let intercept = function(cb) {
                     if(run.isGenerator(cb)) {
                         cb = run(cb);
                     }
-                    deferred = deferred.then(() => cb(req, res, app, express));
+                    deferred = deferred.then(() => cb(req, res, next, app, express));
                 };
                 _.forEach(beforeEach, intercept);
                 _.forEach(before, intercept);
-                let content = cb(req, req.body, res);
+                let content = cb(req, req.body, res, next);
                 run(function*() {
                     yield deferred;
                     if(content instanceof Promise) {
