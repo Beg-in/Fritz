@@ -47,7 +47,7 @@
     "nodemailer": "2.0.0",
     "nodep": "0.2.3",
     "pg": "4.4.3",
-    "scrypt": "6.0.2",
+    "scrypt": "6.0.3",
     "shortid": "2.2.4",
     "throng": "1.0.1",
     "tiny-lr": "0.2.1"
