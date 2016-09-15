@@ -1,10 +1,17 @@
 'use strict';
 
-var shortid = require('shortid');
+const shortid = require('shortid');
 
-module.exports = function(util, _, db, admin) {
+module.exports = function(
+    apiError,
+    log,
+    util,
+    _,
+    db,
+    admin
+) {
 
-    var rule = function(regex, message) {
+    let rule = function(regex, message) {
         return  {
             test: function(value) {
                 return regex.test(value);
@@ -13,7 +20,7 @@ module.exports = function(util, _, db, admin) {
         };
     };
 
-     var valid = {
+    let valid = {
         rule: rule,
         id: {
             test: shortid.isValid,
@@ -42,7 +49,7 @@ module.exports = function(util, _, db, admin) {
         }
     };
 
-    var createModelTable = function(name) {
+    let createModelTable = function(name) {
         return db.query(`
             create table if not exists ${name} (
                 id text primary key not null,
@@ -53,8 +60,8 @@ module.exports = function(util, _, db, admin) {
         });
     };
 
-    var params = function(obj) {
-        var id = obj._id;
+    let params = function(obj) {
+        let id = obj._id;
         obj = _.cloneDeep(obj);
         delete obj._id;
         return [id, JSON.stringify(obj)];
@@ -62,9 +69,9 @@ module.exports = function(util, _, db, admin) {
 
     const JSONB = `data || jsonb_build_object('_id', id) as data`;
 
-    var model = function(descriptor) {
+    let model = function(descriptor) {
         createModelTable(descriptor.table);
-        var createQuery = db.prepare(`${descriptor.table.toUpperCase()}_CREATE`, `
+        let createQuery = db.prepare(`${descriptor.table.toUpperCase()}_CREATE`, `
             insert
             into ${descriptor.table}
             values($1, $2);
@@ -88,9 +95,10 @@ module.exports = function(util, _, db, admin) {
         class Model {
             constructor(obj) {
                 this._id = valid.id.test(obj._id) ? obj._id : shortid.generate();
-                _.forEach(descriptor.properties, function(rule, property) {
-                    this[property] = obj[property];
-                }, this);
+                let self = this;
+                _.forEach(descriptor.properties, (rule, property) => {
+                    self[property] = obj[property];
+                });
             }
             create() {
                 return createQuery(params(this)).then(() => this);
@@ -111,11 +119,10 @@ module.exports = function(util, _, db, admin) {
                 });
             }
             update(obj) {
-                var self = this;
                 if(obj) {
-                    _.forEach(obj, function(value, property) {
+                    _.forEach(obj, (value, property) => {
                         this[property] = value;
-                    }, this);
+                    });
                 }
                 return Model.validate(this).then(function() {
                     return updateQuery(params(self));
@@ -133,16 +140,24 @@ module.exports = function(util, _, db, admin) {
                 return new Promise(function(resolve, reject) {
                     _.forEach(descriptor.properties, function(rule, property) {
                         if(!rule.test(obj[property])) {
-                            reject(rule.message);
+                            reject(apiError(rule.message));
                         }
                     });
                     resolve(new Model(obj));
                 });
             }
-            safe() {
-                var out = {};
-                _.forEach(descriptor.properties, ($, property) => {
-                    if(!_.contains(descriptor.protect, property)) {
+            safe(override) {
+                let protect = _.cloneDeep(descriptor.protect);
+                if(override && _.isArray(protect)) {
+                    override = _.isArray(override) ? override : [override];
+                    override.unshift(protect);
+                    protect = _.without.apply(_, override);
+                }
+                let out = {};
+                let properties = _.cloneDeep(descriptor.properties);
+                properties._id = this._id;
+                _.forEach(properties, ($, property) => {
+                    if(!_.includes(protect, property)) {
                         out[property] = this[property];
                     }
                 });
@@ -156,20 +171,84 @@ module.exports = function(util, _, db, admin) {
         Model.deleteQuery = deleteQuery;
 
         if(descriptor.queries) {
+
             _.forEach(descriptor.queries, function(query, key) {
-                var name = `${descriptor.table.toUpperCase()}_${key.toUpperCase()}`;
-                var statement = db.prepare(name, query);
+                let name = `${descriptor.table.toUpperCase()}_${key.toUpperCase()}`;
+                let statement = db.prepare(name, query);
                 Model[name] = statement;
+                let of = promise => {
+                    promise.of = T => promise.then(result => new T(result));
+                };
+                let model = promise => {
+                    promise.model = () => promise.then(result => new Model(result));
+                };
+                let one = promise => {
+                    promise.one = () => {
+                        let then = promise.then(result => result[0])
+                        of(then);
+                        model(then);
+                        return then;
+                    };
+                };
+                let unique = promise => {
+                    promise.unique = err => {
+                        let then = promise.then(result => {
+                            if(result.length > 1) {
+                                err = err || apiError.serverError(new Error(`Non-unique result in query ${name}`));
+                                if(err instanceof Error) {
+                                    throw err;
+                                }
+                                if(err instanceof Promise) {
+                                    return err;
+                                }
+                                return apiError.serverError(new Error(err));
+                            }
+                            return result[0];
+                        });
+                        of(then);
+                        model(then);
+                        return then;
+                    };
+                };
+                let listOf = promise => {
+                    promise.of = T => promise.then(result =>
+                        _.map(result, row => new T(row))
+                    );
+                };
+                let models = promise => {
+                    promise.model = () => promise.then(result =>
+                       _.map(result, row => new Model(row))
+                    );
+                };
                 Model[key] = function() {
-                    return statement.apply(db, arguments).then(function(result) {
-                        if(result.rows.length < 1) {
-                            throw new Error(`No result found in query ${name}`);
-                        }
-                        if(result.rows.length === 1) {
-                            return result.rows[0].data;
-                        }
+                    let promise = statement.apply(db, arguments).then(function(result) {
                         return result.rows.map(row => row.data);
                     });
+                    promise.required = err => {
+                        promise.then(result => {
+                            if(!result || !result.length || result.length < 1) {
+                                err = err || apiError.notFound();
+                                if(err instanceof Error) {
+                                    throw err;
+                                }
+                                if(err instanceof Promise) {
+                                    return err;
+                                }
+                                return apiError.notFound(err);
+                            }
+                            return result;
+                        });
+                        unique(promise);
+                        one(promise);
+                        listOf(promise);
+                        models(promise);
+                        return promise;
+                    };
+                    unique(promise);
+                    one(promise);
+                    listOf(promise);
+                    models(promise);
+                    return promise
                 };
             });
         }

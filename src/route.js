@@ -1,6 +1,15 @@
 'use strict';
 
-module.exports = function(_, app, express, path, run) {
+module.exports = function(
+    _,
+    app,
+    express,
+    path,
+    run,
+    apiError
+) {
+    let handler = apiError.handler;
+
     let route = function(base) {
         let beforeEach = [];
         let interceptors = [];
@@ -17,26 +26,24 @@ module.exports = function(_, app, express, path, run) {
                 cb = run(cb);
             }
             endpoint = path.join('/', endpoint);
-            app[method](endpoint, function(req, res, next) {
+            app[method](endpoint, function(req, res) {
                 let deferred = Promise.resolve();
-                let intercept = function(cb) {
+                let intercept = cb => {
                     if(run.isGenerator(cb)) {
                         cb = run(cb);
                     }
-                    deferred = deferred.then(() => cb(req, res, next, app, express));
+                    deferred = deferred.then(() => cb.apply(app, arguments));
                 };
                 _.forEach(beforeEach, intercept);
                 _.forEach(before, intercept);
-                let content = cb(req, req.body, res, next);
+                let content = cb.apply(app, arguments);
                 run(function*() {
                     yield deferred;
                     if(content instanceof Promise) {
                         content = yield content;
                     }
                     res.json(content);
-                })().catch(err => res.json({
-                    error: err.message
-                }));
+                })().catch(handler.apply(app, arguments));
             });
         };
 
@@ -90,7 +97,12 @@ module.exports = function(_, app, express, path, run) {
         return methods;
     };
 
-    return function(base, cb) {
+    let out = function(base, cb) {
         cb(route(base));
     };
+    out.setErrorHandler = function(cb) {
+        handler = cb;
+    };
+
+    return out;
 };

@@ -94,8 +94,8 @@ var fritz = function(config) {
         run: $p.dependencies.run,
         build: begin,
         start: function() {
-            var listen = function() {
-                util.log('start worker');
+            var listen = function(id) {
+                util.log('start worker', id);
                 app.listen(config.port);
             };
 
@@ -103,7 +103,8 @@ var fritz = function(config) {
             if(config.debug) {
                 listen();
             } else {
-                throng(listen, {
+                throng({
+                    start: listen,
                     workers: config.workers,
                     lifetime: Infinity
                 });
