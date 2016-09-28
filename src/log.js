@@ -2,6 +2,29 @@
 
 let winston = require('winston');
 
+/**
+ * ## Log
+ * Wrapper for [Winston](https://github.com/winstonjs/winston)
+ * ### Logging
+ * ```js
+ * log('a message to log');
+ * log.info('an info message to log');
+ * log.warn('an warn message to log');
+ * log.error('an error message to log');
+ *
+ * // set loggers for Winston
+ * log.setLogger([
+ *      {
+ *          type: 'Console',
+ *          colorize: true,
+ *          level: 'debug'
+ *      }
+ * ])
+ * ```
+ * @namespace
+ * @type {Function}
+ * @module log
+ */
 module.exports = function(_) {
     let logger;
     const setLogger = transports => {

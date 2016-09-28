@@ -5,6 +5,7 @@ var util = require('util');
 var _ = require('lodash');
 
 module.exports = function(assert) {
+    /*
     describe('model', function() {
         var db = {
             prepare: function() {
@@ -37,4 +38,5 @@ module.exports = function(assert) {
             assert.equal(expected, actual);
         });
     });
+    */
 };

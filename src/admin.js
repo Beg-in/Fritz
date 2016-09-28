@@ -2,6 +2,7 @@
 
 module.exports = function(path, app, express, config, route) {
 
+    /*
     var models = [];
     app.use('/fritz', express.static(path.join(config.paths.dirname, 'admin')));
 
@@ -18,4 +19,5 @@ module.exports = function(path, app, express, config, route) {
             models.push(descriptor);
         }
     };
+    */
 };

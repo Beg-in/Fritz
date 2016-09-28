@@ -43,6 +43,50 @@ const ERROR_CODES = {
     }
 };
 
+/**
+ * ## Api Errors
+ *
+ * All `apiError` functions return a rejected Promise
+ * with an value of type `ApiError`. These promises will
+ * have a property called `throwable` that returns the
+ * ApiError. If these promises are returned to a Fritz
+ * route, they will result in a http response with the
+ * appropriate error code and will be formatted by the
+ * function at `apiError.handler`.
+ *
+ * ### Usage
+ * ```js
+ * // custom message and status code
+ * apiError('a message to reject with', 200);
+ *
+ * // Bad Request (400)
+ * apiError(); // default message
+ * apiError('a message to reject with'); // custom message
+ *
+ * // respond with Internal Server Error (204)
+ * apiError.fatal();
+ * apiError.fatal('a message to log');
+ * apiError(new Error());
+ *
+ * // All `apiError` functions accept a single parameter for the message
+ * apiError.badRequest('a message to reject with');
+ *
+ * // Additional `apiError` error functions
+ * apiError.noContent(); // No Content (204)
+ * apiError.badRequest(); // Bad Request (400)
+ * apiError.unauthorized(); // Unauthorized (401)
+ * apiError.paymentRequired(); // Payment Required (402)
+ * apiError.forbidden(); // Forbidden (403)
+ * apiError.notFound(); // Not Found (404)
+ * apiError.methodNotAllowed(); // Method Not Allowed (405)
+ * apiError.conflict(); // Conflict (409)
+ * apiError.unsupportedMediaType(); // Unsupported Media Type (415)
+ * apiError.serverError(); // Internal Server Error (500)
+ * ```
+ * @namespace
+ * @type {Function}
+ * @module apiError
+ */
 module.exports = function(
     _,
     log
@@ -80,6 +124,14 @@ module.exports = function(
         error[key] = msg => error(msg || obj.message, obj.code)
     );
     error.fatal = msg => error(msg, 500);
+
+    /**
+     * Error handler middleware for Express
+     * @function
+     * @param {Object} req The request object
+     * @param {Object} res The response object
+     * @param {Function} next The next callback
+     */
     error.handler = function(req, res, next) {
         return (err) => {
             if(err instanceof Error) {
@@ -101,7 +153,19 @@ module.exports = function(
             });
         }
     };
+
+    /**
+     * ApiError Error type
+     * @type {Error}
+     * @constant
+     */
     error.throwable = ApiError;
+
+    /**
+     * List of possible error codes
+     * @type {Object}
+     * @constant
+     */
     error.ERROR_CODES = ERROR_CODES;
 
     return error;

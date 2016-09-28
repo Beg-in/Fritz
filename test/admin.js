@@ -8,6 +8,7 @@ var model   = require('../src/model');
 
 module.exports = function(assert) {
 
+    /*
     describe('createTable', function() {
         it('should add table and reflect it in admin!', function() {
 
@@ -32,4 +33,5 @@ module.exports = function(assert) {
 
         });
     });
+    */
 };

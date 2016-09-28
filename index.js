@@ -76,15 +76,6 @@ var fritz = function(config) {
         config: config
     }).init(path.join(config.paths.src, '**/*.js'));
 
-    if(config.isDev) {
-        app.use(require('connect-livereload')());
-        //app.use('/fonts', express.static(config.paths.fontsDev));
-    } else {
-        // TODO add cache control
-        // var oneDay = 86400000;
-        // app.use(express.static(__dirname + '/public', { maxAge: oneDay }));
-    }
-
     return {
         provider: $p,
         static: $p.dependencies.static,
