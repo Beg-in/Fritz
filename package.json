@@ -7,8 +7,6 @@
   },
   "main": "index.js",
   "scripts": {
-    "preinstall": "",
-    "postinstall": "gulp build",
     "start": "nf run gulp dev",
     "test": "gulp test",
     "changelog": "gulp changelog",
