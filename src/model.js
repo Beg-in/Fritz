@@ -318,9 +318,8 @@ module.exports = function(
         class Model {
             constructor(obj) {
                 this._id = valid.id.test(obj._id) ? obj._id : shortid.generate();
-                let self = this;
                 _.forEach(descriptor.properties, (rule, property) => {
-                    self[property] = obj[property];
+                    this[property] = obj[property];
                 });
             }
             /**
@@ -375,11 +374,9 @@ module.exports = function(
                         this[property] = value;
                     });
                 }
-                return Model.validate(this).then(function() {
-                    return updateQuery(params(self));
-                }).then(function() {
-                    return self;
-                });
+                return Model.validate(this)
+                    .then(() => updateQuery(params(this)))
+                    .then(() => this);
             }
 
             /**
@@ -509,7 +506,7 @@ module.exports = function(
                          */
                         then.of = T => {
                             T = T || Model;
-                            return promise.then(result => new T(result));
+                            return then.then(result => new T(result));
                         };
                         return then;
                     };
@@ -542,22 +539,23 @@ module.exports = function(
                      * @returns {Promise} the resulting promise
                      */
                     promise.required = err => {
-                        promise.then(result => {
+                        let then = promise.then(result => {
                             if(!result || !result.length || result.length < 1) {
                                 err = err || apiError.notFound();
                                 if(err instanceof Error) {
                                     throw err;
                                 }
                                 if(err instanceof Promise) {
+                                    console.log('instanceof promise');
                                     return err;
                                 }
                                 return apiError.notFound(err);
                             }
                             return result;
                         });
-                        unique(promise);
-                        listOf(promise);
-                        return promise;
+                        unique(then);
+                        listOf(then);
+                        return then;
                     };
                     unique(promise);
                     listOf(promise);
