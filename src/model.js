@@ -546,7 +546,6 @@ module.exports = function(
                                     throw err;
                                 }
                                 if(err instanceof Promise) {
-                                    console.log('instanceof promise');
                                     return err;
                                 }
                                 return apiError.notFound(err);
