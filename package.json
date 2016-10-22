@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nf run gulp dev",
-    "test": "gulp test",
+    "dev-test": "gulp test",
     "changelog": "gulp changelog",
     "updatedocs": "gulp docs",
     "preversion": "npm run test",
