@@ -34,7 +34,6 @@ var app = express();
 var bodyParser = require('body-parser');
 var throng = require('throng');
 var $p = require('nodep')();
-var begin = require('gulp-begin');
 
 app.use(compress());
 app.use(bodyParser.json());
@@ -83,7 +82,6 @@ var fritz = function(config) {
         route: $p.dependencies.route,
         db: $p.dependencies.db,
         run: $p.dependencies.run,
-        build: begin,
         start: function() {
             var listen = function(id) {
                 util.log('start worker', id);
