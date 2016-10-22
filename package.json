@@ -37,9 +37,6 @@
     "compression": "1.6.2",
     "connect-livereload": "0.5.4",
     "express": "4.14.0",
-    "gulp": "3.9.1",
-    "gulp-begin": "github:beg-in/gulp-begin",
-    "handlebars": "4.0.5",
     "lodash": "4.15.0",
     "marked": "0.3.6",
     "nodemailer": "2.6.0",
@@ -51,6 +48,8 @@
     "winston": "2.2.0"
   },
   "devDependencies": {
+    "gulp": "3.9.1",
+    "handlebars": "4.0.5",
     "gulp-begin": "github:beg-in/gulp-begin"
   }
 }
