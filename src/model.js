@@ -155,8 +155,7 @@ module.exports = function(
     log,
     util,
     _,
-    db,
-    //admin
+    db
 ) {
 
     let rule = function(regex, message) {
