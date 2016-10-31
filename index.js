@@ -62,6 +62,7 @@ var fritz = function(config) {
         },
         isDev: process.env.NODE_ENV === 'dev',
         port: process.env.PORT || 8081,
+        ip: process.env.LISTEN_IP
         workers: process.env.WEB_CONCURRENCY || 1,
         debug: !!process.env.NODE_DEBUG
     });
@@ -85,7 +86,7 @@ var fritz = function(config) {
         start: function() {
             var listen = function(id) {
                 util.log('start worker', id);
-                app.listen(config.port);
+                app.listen(config.port, config.ip);
             };
 
             //app.use(express.static(config.env.root));
