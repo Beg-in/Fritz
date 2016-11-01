@@ -16,10 +16,10 @@ module.exports = function(
      * ### Creating routes
      * ```js
      * // create a base route
-     * route('api/v1/test', function(method) {
+     * route('api/v1/test', function(scope) {
      *
      *     // bind a "GET" method to the base
-     *     method.get(function(req, res) {
+     *     scope.get(function(req, res) {
      *         // req and res are from Express
      *
      *         // return plain values
@@ -33,19 +33,19 @@ module.exports = function(
      *         return Promse.resolve(true);
      *     };
      *     // intercept every route in this scope
-     *     method.beforeEach(alwaysDo);
+     *     scope.beforeEach(alwaysDo);
      *
      *     // interceptor can be a generator and will execute in Fritz.run
      *     let requireLogin = function*() {
      *        return true;
      *     };
      *     // intercept only the next route
-     *     method(requireLogin);
+     *     scope(requireLogin);
      *
      *     // bind a "POST" method to the base
      *     // myroute will be appended to the route route from this scope
      *     // e.g. "/api/v1/test/myroute"
-     *     method.post('myroute', function*(req, res) {
+     *     scope.post('myroute', function*(req, res) {
      *         // can be a generator and will execute in Fritz.run
      *
      *         // return JSON type
@@ -55,45 +55,45 @@ module.exports = function(
      *     });
      *
      *     // multiple methods on the same route
-     *     method.put('myroute', function(req, res) {
+     *     scope.put('myroute', function(req, res) {
      *         // return type Promise - response will extract the resolved value
      *         return Promise.resolve('resolved value');
      *     });
      *
      *     // use Express route parameters
-     *     method.delete('myroute/:id', function(req, res) {
+     *     scope.delete('myroute/:id', function(req, res) {
      *         // return type Promise - response will extract the resolved value
      *         return Promise.resolve('resolved value');
      *     });
      *
      *     // All of the following are valid methods
-     *     method.all
-     *     method.checkout
-     *     method.connect
-     *     method.copy
-     *     method.delete
-     *     method.get
-     *     method.head
-     *     method.lock
-     *     method.merge
-     *     method.mkactivity
-     *     method.mkcol
-     *     method.move
-     *     method['m-search']
-     *     method.notify
-     *     method.options
-     *     method.patch
-     *     method.post
-     *     method.propfind
-     *     method.proppatch
-     *     method.purge
-     *     method.put
-     *     method.report
-     *     method.search
-     *     method.subscribe
-     *     method.trace
-     *     method.unlock
-     *     method.unsubscribe
+     *     scope.all
+     *     scope.checkout
+     *     scope.connect
+     *     scope.copy
+     *     scope.delete
+     *     scope.get
+     *     scope.head
+     *     scope.lock
+     *     scope.merge
+     *     scope.mkactivity
+     *     scope.mkcol
+     *     scope.move
+     *     scope['m-search']
+     *     scope.notify
+     *     scope.options
+     *     scope.patch
+     *     scope.post
+     *     scope.propfind
+     *     scope.proppatch
+     *     scope.purge
+     *     scope.put
+     *     scope.report
+     *     scope.search
+     *     scope.subscribe
+     *     scope.trace
+     *     scope.unlock
+     *     scope.unsubscribe
      * });
      * ```
      * ### Interceptors

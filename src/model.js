@@ -480,11 +480,15 @@ module.exports = function(
                      * @returns {Promise} a transformed promise with only the first result
                      */
                     promise.unique = err => {
+                        // for unhandled rejection error
+                        if(err instanceof Promise) {
+                            err.catch(() => {});
+                        }
                         let then = promise.then(result => {
-                            if(err === null) {
-                                return null;
-                            }
                             if(result.length > 1) {
+                                if(err === null) {
+                                    return null;
+                                }
                                 err = err || apiError.serverError(new Error(`Non-unique result in query ${name}`));
                                 if(err instanceof Error) {
                                     throw err;
@@ -493,6 +497,9 @@ module.exports = function(
                                     return err;
                                 }
                                 return apiError.serverError(new Error(err));
+                            }
+                            if(err instanceof Promise) {
+                                err.catch(() => {});
                             }
                             return result[0];
                         });
@@ -538,8 +545,15 @@ module.exports = function(
                      * @returns {Promise} the resulting promise
                      */
                     promise.required = err => {
+                        // for unhandled rejection error
+                        if(err instanceof Promise) {
+                            err.catch(() => {});
+                        }
                         let then = promise.then(result => {
                             if(!result || !result.length || result.length < 1) {
+                                if(err === null) {
+                                    return null;
+                                }
                                 err = err || apiError.notFound();
                                 if(err instanceof Error) {
                                     throw err;
