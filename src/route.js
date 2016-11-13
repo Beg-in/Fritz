@@ -134,9 +134,10 @@ module.exports = function(
                 };
                 _.forEach(beforeEach, intercept);
                 _.forEach(before, intercept);
-                let content = cb.apply(app, arguments);
+                let args = arguments;
                 run(function*() {
                     yield deferred;
+                    let content = cb.apply(app, args);
                     if(content instanceof Promise) {
                         content = yield content;
                     }
