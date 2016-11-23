@@ -316,7 +316,8 @@ module.exports = function(
          */
         class Model {
             constructor(obj) {
-                this._id = valid.id.test(obj._id) ? obj._id : shortid.generate();
+                obj = obj || {};
+                this._id = valid.id.test(obj._id) ? obj._id : (this._id || shortid.generate());
                 _.forEach(descriptor.properties, (rule, property) => {
                     this[property] = obj[property];
                 });
