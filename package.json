@@ -7,10 +7,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "preinstall": "",
-    "postinstall": "gulp build",
-    "start": "nf run gulp dev",
-    "test": "gulp test",
+    "dev": "nf run gulp dev",
+    "dev-test": "gulp test",
     "changelog": "gulp changelog",
     "updatedocs": "gulp docs",
     "preversion": "npm run test",
@@ -35,24 +33,23 @@
   },
   "homepage": "https://github.com/Beg-in/Fritz#readme",
   "dependencies": {
-    "body-parser": "1.14.2",
-    "compression": "1.6.1",
+    "body-parser": "1.15.2",
+    "compression": "1.6.2",
     "connect-livereload": "0.5.4",
-    "express": "4.13.3",
-    "gulp": "3.9.0",
-    "handlebars": "4.0.5",
-    "jsonwebtoken": "5.7.0",
-    "lodash": "3.10.1",
-    "marked": "0.3.5",
-    "nodemailer": "2.0.0",
+    "express": "4.14.0",
+    "lodash": "4.15.0",
+    "marked": "0.3.6",
+    "nodemailer": "2.6.0",
     "nodep": "0.2.3",
-    "pg": "4.4.3",
-    "scrypt": "6.0.2",
-    "shortid": "2.2.4",
-    "throng": "1.0.1",
-    "tiny-lr": "0.2.1"
+    "pg": "6.1.0",
+    "shortid": "2.2.6",
+    "throng": "4.0.0",
+    "tiny-lr": "0.2.1",
+    "winston": "2.2.0"
   },
   "devDependencies": {
+    "gulp": "3.9.1",
+    "handlebars": "4.0.5",
     "gulp-begin": "github:beg-in/gulp-begin"
   }
 }

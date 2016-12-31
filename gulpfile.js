@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var begin = require('gulp-begin');
 
 /**
  * ## Build
@@ -66,7 +67,9 @@ var gulp = require('gulp');
  * - commit messages should follow [Angular conventional format](https://github.com/stevemao/conventional-changelog-angular/blob/master/convention.md)
  * @module contributing
  */
-require('gulp-begin')(gulp, {
+
+begin(gulp, {
+    prefix: 'example',
     server: {
         main: 'example/index.js',
         cwd: 'example/src/server'
@@ -75,6 +78,22 @@ require('gulp-begin')(gulp, {
         cwd: 'example/src/client',
         dest: 'example/public'
     }
+});
+
+begin(gulp, {
+    server: {
+        cwd: 'src'
+    },
+    exclude: [
+        'html',
+        'styles',
+        'scripts',
+        'images',
+        'build',
+        'server',
+        'demon',
+        'dev'
+    ]
 });
 
 gulp.task('default', ['dev']);

@@ -34,7 +34,6 @@ var app = express();
 var bodyParser = require('body-parser');
 var throng = require('throng');
 var $p = require('nodep')();
-var begin = require('gulp-begin');
 
 app.use(compress());
 app.use(bodyParser.json());
@@ -63,6 +62,7 @@ var fritz = function(config) {
         },
         isDev: process.env.NODE_ENV === 'dev',
         port: process.env.PORT || 8081,
+        ip: process.env.LISTEN_IP,
         workers: process.env.WEB_CONCURRENCY || 1,
         debug: !!process.env.NODE_DEBUG
     });
@@ -76,15 +76,6 @@ var fritz = function(config) {
         config: config
     }).init(path.join(config.paths.src, '**/*.js'));
 
-    if(config.isDev) {
-        app.use(require('connect-livereload')());
-        //app.use('/fonts', express.static(config.paths.fontsDev));
-    } else {
-        // TODO add cache control
-        // var oneDay = 86400000;
-        // app.use(express.static(__dirname + '/public', { maxAge: oneDay }));
-    }
-
     return {
         provider: $p,
         static: $p.dependencies.static,
@@ -92,18 +83,18 @@ var fritz = function(config) {
         route: $p.dependencies.route,
         db: $p.dependencies.db,
         run: $p.dependencies.run,
-        build: begin,
         start: function() {
-            var listen = function() {
-                util.log('start worker');
-                app.listen(config.port);
+            var listen = function(id) {
+                util.log('start worker', id);
+                app.listen(config.port, config.ip);
             };
 
             //app.use(express.static(config.env.root));
             if(config.debug) {
                 listen();
             } else {
-                throng(listen, {
+                throng({
+                    start: listen,
                     workers: config.workers,
                     lifetime: Infinity
                 });
