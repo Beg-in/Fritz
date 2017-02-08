@@ -1,9 +1,6 @@
 'use strict';
 
-/**
- * @author Brian Jesse (@BrainBacon)
- */
-const shortid = require('shortid');
+let crypto = require('crypto');
 
 /**
  * ## Model
@@ -23,7 +20,7 @@ const shortid = require('shortid');
  *         name: model.valid.name, // 2 characters
  *         email: model.valid.email, // email addresses
  *         pass: model.valid.password, // 8 characters
- *         child: model.valid.id, // validate shortids
+ *         child: model.valid.id, // validate ids
  *         description: model.valid.nonempty, // 1 character
  *         achievements: model.valid.nullable, // can be empty
  *         // custom validation objects can also be used
@@ -176,7 +173,7 @@ module.exports = function(
         rule: rule,
 
         /**
-         * Validation type requiring a valid shortid
+         * Validation type requiring a valid id
          * @constant
          * @type {Object}
          * @example
@@ -184,10 +181,10 @@ module.exports = function(
          * let validator = model.valid.id;
          * ```
          */
-        id: {
-            test: shortid.isValid,
-            message: 'Not a valid id'
-        },
+        id: rule(
+            /^[\w-]{6,}/,
+            'Not a valid id'
+        ),
 
         /**
          * Validation type requiring at least single character
@@ -261,6 +258,12 @@ module.exports = function(
         }
     };
 
+    let genId = () => crypto
+        .randomBytes(12)
+        .toString('base64')
+        .replace(/\//g, '_')
+        .replace(/\+/g, '-');
+
     let createModelTable = function(name) {
         return db.query(`
             create table if not exists ${name} (
@@ -294,17 +297,17 @@ module.exports = function(
             into ${descriptor.table}
             values($1, $2);
         `);
-        var readQuery = db.prepare(`${descriptor.table.toUpperCase()}_READ`, `
+        let readQuery = db.prepare(`${descriptor.table.toUpperCase()}_READ`, `
             select ${JSONB}
             from ${descriptor.table}
             where id = $1;
         `);
-        var updateQuery = db.prepare(`${descriptor.table.toUpperCase()}_UPDATE`, `
+        let updateQuery = db.prepare(`${descriptor.table.toUpperCase()}_UPDATE`, `
             update ${descriptor.table}
             set data = $2
             where id = $1;
         `);
-        var deleteQuery = db.prepare(`${descriptor.table.toUpperCase()}_DELETE`, `
+        let deleteQuery = db.prepare(`${descriptor.table.toUpperCase()}_DELETE`, `
             delete
             from ${descriptor.table}
             where id = $1
@@ -317,7 +320,7 @@ module.exports = function(
         class Model {
             constructor(obj) {
                 obj = obj || {};
-                this._id = valid.id.test(obj._id) ? obj._id : (this._id || shortid.generate());
+                this._id = valid.id.test(obj._id) ? obj._id : this._id;
                 _.forEach(descriptor.properties, (rule, property) => {
                     this[property] = obj[property];
                 });
@@ -327,8 +330,20 @@ module.exports = function(
              * @function
              * @returns {Promise} result will contain this object
              */
-            create() {
-                return createQuery(params(this)).then(() => this);
+            create(retry) {
+                if(!retry && !this._id) {
+                    this._id = '1';
+                    retry = 1;
+                }
+                if(!this._id || retry) {
+                    this._id = genId();
+                }
+                return createQuery(params(this)).catch(err => {
+                    if(err.code === '23505' && retry && retry < 5) {
+                        return this.create(++retry);
+                    }
+                    throw err;
+                }).then(() => this);
             }
 
             /**
@@ -339,11 +354,7 @@ module.exports = function(
              * @returns {Promise} result will contain the validated object
              */
             static create(obj) {
-                return Model.validate(obj).then(function(result) {
-                    return result.create().then(function() {
-                        return result;
-                    });
-                });
+                return Model.validate(obj).then(validated => validated.create());
             }
 
             /**
@@ -439,6 +450,26 @@ module.exports = function(
                     }
                 });
                 return out;
+            }
+
+            initId() {
+                return new Promise((resolve, reject) => {
+                    if(this._id) {
+                        resolve(this);
+                    }
+                    let tryId = retry => {
+                        this._id = genId();
+                        return Model.read(this._id)
+                            .then(() => {
+                                if(retry < 5) {
+                                    return tryId(++retry);
+                                }
+                                reject(new Error('Unable to generate id'))
+                            })
+                            .catch(() => resolve(this))
+                    };
+                    tryId(1);
+                });
             }
         }
 
@@ -582,21 +613,10 @@ module.exports = function(
         return Model;
     };
 
+    model.genId = genId;
     model.valid = valid;
 
-    /**
-     * A reference to shortid the engine used to generate ids
-     * @function
-     * @type {Object}
-     */
     model.createModelTable = createModelTable;
-
-    /**
-     * A reference to shortid the engine used to generate ids
-     * @constant
-     * @type {Object}
-     */
-    model.shortid = shortid;
 
     /**
      * Helper text to select JSONB data with an embedded `_id` primary key

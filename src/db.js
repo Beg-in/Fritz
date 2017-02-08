@@ -17,9 +17,13 @@ module.exports = function(_, config) {
             this.type = type;
         }
         static PG(type, message, err) {
-            console.error(message, err);
             var output = new DBError(type, message);
-            output.err = err;
+            output.original = err.original || err.message;
+            Object.keys(err).forEach(key => {
+                if(key !== 'message' && key !== 'type') {
+                    output[key] = err[key];
+                }
+            });
             return output;
         }
         get TYPE() {

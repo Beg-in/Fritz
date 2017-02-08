@@ -38,6 +38,7 @@ let out = function(runnable, thisArg) {
                 return deferred.then(result => {
                     cur = it.next(result);
                     exec();
+                    return null;
                 }).catch(err => {
                     try {
                         cur = it.throw(err);
