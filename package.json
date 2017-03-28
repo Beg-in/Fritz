@@ -1,6 +1,6 @@
 {
   "name": "Fritz",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Fritz Full-Stack Framework",
   "engines": {
     "node": ">=5.0"
