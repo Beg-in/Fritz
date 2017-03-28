@@ -58,7 +58,8 @@ var fritz = function(config) {
             host: process.env.PG_HOST,
             port: process.env.PG_PORT,
             db: process.env.PG_DB,
-            url: process.env.DATABASE_URL
+            url: process.env.DATABASE_URL,
+            ssl: !!process.env.PG_SSL
         },
         isDev: process.env.NODE_ENV === 'dev',
         port: process.env.PORT || 8081,

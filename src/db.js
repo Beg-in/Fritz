@@ -50,7 +50,8 @@ module.exports = function(_, config) {
                 password: config.pg.pass,
                 host: config.pg.host,
                 port: config.pg.port,
-                database: config.pg.db
+                database: config.pg.db,
+                ssl: config.pg.ssl
             };
             pg.connect(details, function(err, client, done) {
                 if(err) {
